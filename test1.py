@@ -1,3 +1,5 @@
-l = [6, 9]
-print(l)
-print(*l)
+def f():
+    return 2, 3
+a, b = f()
+print(a)
+print(b)
