@@ -18,15 +18,17 @@ def getid_bd():
     
     return sql.fetchall()
 
-def get_bd(id):
+def get_bd(id=0):
     db, sql = create_bd()
-    print(inp_author,inp_quote)
-    sql.execute(f"SELECT rowid, author, quote FROM users WHERE rowid = '{id}' ")
-    if not sql.fetchone():
-        print('Такая цитата не существует')                
-    else:         
-        
-        print(sql.fetchall())
+    if id==0:
+        sql.execute('SELECT rowid, author, quote FROM users')
+    else:
+        sql.execute(f"SELECT rowid, author, quote FROM users WHERE rowid = '{id}' ")
+        if not sql.fetchone():
+            print('Такая цитата не существует')                
+        else:         
+            
+            print(sql.fetchall())
 
     sql.execute('SELECT * FROM users')
     
