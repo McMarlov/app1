@@ -12,12 +12,27 @@ def create_bd():
     db.commit()
     return db, sql
 
-def get_bd():
+def getid_bd():
     db, sql = create_bd()   
     sql.execute('SELECT rowid, author, quote FROM users')
     
     return sql.fetchall()
 
+def get_bd(id):
+    db, sql = create_bd()
+    print(inp_author,inp_quote)
+    sql.execute(f"SELECT rowid, author, quote FROM users WHERE rowid = '{id}' ")
+    if not sql.fetchone():
+        print('Такая цитата не существует')                
+    else:         
+        
+        print(sql.fetchall())
+
+    sql.execute('SELECT * FROM users')
+    
+    return sql.fetchall()
+
+    
 def post_bd(inp_author, inp_quote):
     
     db, sql = create_bd() 
