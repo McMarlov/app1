@@ -5,26 +5,30 @@ import requests
 from requests.api import request
 
 from werkzeug.sansio.response import Response
-from testsqlite3 import  put_bd, get_bd, post_bd, delete_bd 
+from testsqlite3 import  put_bd, get_bd, post_bd, delete_bd, create_bd 
 app = Flask(__name__)
 api = Api(app)
 #---База цитат---
 
 #---Запрос на вывод цитат---
 class Quote(Resource):
+    create_bd()
     def get(self):
+        """Вывод цитат."""
         return get_bd()
         
     #---Добавление цитат---
     def post(self):
+        """Добавление цитат."""
         params = get_params('inp_author', 'inp_quote')
         return  post_bd(*params), 201
        
         
     #---Изменение цитат---
     def put(self, id):
-        params = get_params('inp_author', 'inp_quote', id)
-        return put_bd(*params)
+        """Изменение цитат."""
+        params = get_params('inp_author', 'inp_quote')
+        return put_bd(*params, id)
        
         
     def delete(self, id):
