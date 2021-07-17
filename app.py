@@ -13,9 +13,9 @@ api = Api(app)
 #---Запрос на вывод цитат---
 class Quote(Resource):
     create_bd()
-    def get(self):
+    def get(self, id=None):
         """Вывод цитат."""
-        return get_bd()
+        return get_bd(id)
         
     #---Добавление цитат---
     def post(self):
@@ -42,7 +42,7 @@ def get_params(*args):
     return parser.parse_args().values()
         
 
-api.add_resource(Quote, "/", "/post/<int:id>")
+api.add_resource(Quote, "/","/<int:id>", "/post/<int:id>")
 
 if __name__ == '__main__':
     app.run(debug=True)

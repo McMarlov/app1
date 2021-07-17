@@ -12,27 +12,22 @@ def create_bd():
     db.commit()
     return db, sql
 
-def getid_bd():
-    db, sql = create_bd()   
-    sql.execute('SELECT rowid, author, quote FROM users')
-    
-    return sql.fetchall()
-
-def get_bd(id=0):
+def get_bd(id=None):
+    print(id)
     db, sql = create_bd()
-    if id==0:
+    if not id:
         sql.execute('SELECT rowid, author, quote FROM users')
-    else:
-        sql.execute(f"SELECT rowid, author, quote FROM users WHERE rowid = '{id}' ")
+        return sql.fetchall()
+    else:    
+        sql.execute(f"SELECT rowid FROM users WHERE rowid = '{id}' ")
         if not sql.fetchone():
-            print('Такая цитата не существует')                
+            print('Такая цитата не существует')
+            return None                
         else:         
-            
-            print(sql.fetchall())
-
-    sql.execute('SELECT * FROM users')
+            sql.execute(f"SELECT rowid, author, quote FROM users WHERE rowid = '{id}'")
+            return sql.fetchall()
+        
     
-    return sql.fetchall()
 
     
 def post_bd(inp_author, inp_quote):
@@ -72,7 +67,8 @@ def delete_bd(id):
     sql.execute(f"DELETE FROM users WHERE rowid = '{id}' ")
     db.commit()
 
-print(get_bd())
+#print(get_bd(input('Введите id для изменения ')))
+#print(getid_bd())
 #post_bd(input('Введите автора для реестрации '),input('Введите цитату для реестрации ' ))
 # put_bd(a, c, input('Введите id для изменения '))
 # delete_bd(input('Введите автора для удаления '))
